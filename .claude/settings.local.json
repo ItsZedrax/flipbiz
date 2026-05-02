@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pnpm --version)",
+      "Bash(docker --version)",
+      "Bash(npm --version)",
+      "Bash(corepack --version)",
+      "Bash(brew --version)",
+      "Bash(npm install *)",
+      "Bash(pnpm create *)",
+      "Bash(pnpm add *)",
+      "Bash(pnpm dlx *)",
+      "Bash(pnpm remove *)",
+      "Bash(pnpm typecheck *)",
+      "Bash(pnpm lint *)",
+      "Bash(sed -n '80,100p' /Users/augustin/Desktop/Resell/components/auth/profile-form.tsx)",
+      "Bash(sed -n '85,90p;135,140p' /Users/augustin/Desktop/Resell/components/auth/signup-form.tsx)",
+      "Bash(pnpm build *)",
+      "Read(//Users/augustin/.nvm/**)",
+      "Read(//Users/augustin/**)"
+    ]
+  }
+}
