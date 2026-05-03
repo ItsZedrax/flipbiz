@@ -39,7 +39,7 @@ export function MetricCard({
           <Icon className="h-5 w-5" />
         </div>
         <div className="min-w-0 flex-1">
-          <p className="truncate text-xs font-medium uppercase tracking-wide text-muted-foreground">
+          <p className="line-clamp-2 text-xs font-medium uppercase leading-tight tracking-wide text-muted-foreground">
             {label}
           </p>
           <p className="mt-0.5 text-2xl font-semibold tracking-tight tabular-nums">

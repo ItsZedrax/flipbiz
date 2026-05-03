@@ -28,7 +28,7 @@ export default async function AppLayout({
     <div className="min-h-screen">
       <Sidebar />
       <div className="flex min-h-screen flex-col lg:pl-60">
-        <header className="sticky top-0 z-20 flex h-14 items-center justify-between border-b bg-background/80 px-4 backdrop-blur sm:px-6">
+        <header className="sticky top-0 z-20 flex h-[calc(3.5rem+env(safe-area-inset-top))] items-center justify-between border-b bg-background/80 px-4 pt-[env(safe-area-inset-top)] backdrop-blur sm:px-6">
           <Link href="/" aria-label="Tableau de bord" className="lg:hidden">
             <SiteLogo />
           </Link>
