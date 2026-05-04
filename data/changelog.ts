@@ -22,6 +22,33 @@ export type ChangelogEntry = {
  */
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: "0.6.0",
+    date: "2026-05-04",
+    title: "Navigation premium",
+    items: [
+      {
+        type: "fix",
+        text: "Le haut de l'app n'est plus rogné sur desktop (régression de la dernière version).",
+      },
+      {
+        type: "new",
+        text: "Bouton + flottant sur mobile, contextuel : affiche « + Article » sur Articles, « + Vente » sur Ventes, « + Achat » sur Achats, « + Dépense » sur Dépenses.",
+      },
+      {
+        type: "new",
+        text: "Fil d'Ariane (« Articles › Air Jordan 1 ») sur les pages de détail et les formulaires : un clic pour remonter d'un cran.",
+      },
+      {
+        type: "new",
+        text: "Le header se cache automatiquement au scroll vers le bas et réapparaît quand tu scrolles vers le haut — comme dans Safari ou Twitter.",
+      },
+      {
+        type: "improvement",
+        text: "Bottom nav : indicateur en gradient violet → rose qui glisse entre les onglets actifs, l'icône grossit légèrement à l'arrivée.",
+      },
+    ],
+  },
+  {
     version: "0.5.3",
     date: "2026-05-04",
     title: "Layout mobile + toasts + scrollbar",

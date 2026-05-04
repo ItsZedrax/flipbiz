@@ -1,11 +1,9 @@
-import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import { SiteLogo } from "@/components/layout/site-logo";
-import { ThemeToggle } from "@/components/layout/theme-toggle";
-import { UserMenu } from "@/components/layout/user-menu";
 import { Sidebar } from "@/components/layout/sidebar";
 import { BottomNav } from "@/components/layout/bottom-nav";
+import { AppHeader } from "@/components/layout/app-header";
+import { MobileFab } from "@/components/layout/mobile-fab";
 import { AnnouncementBanner } from "@/components/admin/announcement-banner";
 import { PageTransition } from "@/components/layout/page-transition";
 import { PullToRefresh } from "@/components/layout/pull-to-refresh";
@@ -46,23 +44,14 @@ export default async function AppLayout({
     <div className="min-h-screen">
       <Sidebar isAdmin={isAdmin} />
       <div className="flex min-h-screen flex-col lg:pl-60">
-        <header className="glass-strong sticky top-0 z-20 flex h-[calc(3.5rem+env(safe-area-inset-top))] items-center justify-between border-b px-4 pt-[env(safe-area-inset-top)] sm:px-6">
-          <Link href="/" aria-label="Tableau de bord" className="lg:hidden">
-            <SiteLogo />
-          </Link>
-          <div className="ml-auto flex items-center gap-1">
-            <ThemeToggle />
-            {profile ? (
-              <UserMenu
-                email={user.email ?? ""}
-                fullName={profile.full_name}
-                username={profile.username}
-                avatarUrl={profile.avatar_url}
-                color={profile.color}
-              />
-            ) : null}
-          </div>
-        </header>
+        <AppHeader
+          email={user.email ?? ""}
+          fullName={profile?.full_name ?? null}
+          username={profile?.username ?? ""}
+          avatarUrl={profile?.avatar_url ?? null}
+          color={profile?.color ?? "#6366f1"}
+          hasProfile={!!profile}
+        />
         {announcement ? (
           <AnnouncementBanner
             message={announcement.message}
@@ -76,6 +65,7 @@ export default async function AppLayout({
         </main>
       </div>
       <BottomNav isAdmin={isAdmin} />
+      <MobileFab />
     </div>
   );
 }

@@ -81,7 +81,8 @@
     color: hsl(var(--foreground));
     background: var(--gradient-app);
     background-attachment: fixed;
-    overflow-x: hidden; /* prevent any rogue horizontal slide */
+    /* `clip` prevents horizontal slide without breaking position:fixed (unlike `hidden`). */
+    overflow-x: clip;
     @apply antialiased;
     font-feature-settings: "rlig" 1, "calt" 1;
   }

@@ -13,6 +13,7 @@ import { ArticleActions } from "@/components/articles/article-actions";
 import { Timeline } from "@/components/articles/timeline";
 import { CostBreakdown } from "@/components/articles/cost-breakdown";
 import { ArticleHistory } from "@/components/articles/article-history";
+import { Breadcrumbs } from "@/components/shared/breadcrumbs";
 import { UserAvatar } from "@/components/layout/user-avatar";
 import {
   CATEGORY_LABELS,
@@ -65,14 +66,22 @@ export default async function ArticleDetailPage({
 
   return (
     <div className="mx-auto flex max-w-6xl flex-col gap-6 animate-fade-in">
-      {/* Top: back + actions */}
-      <div className="flex items-center justify-between">
-        <Button asChild variant="ghost" size="sm" className="-ml-2">
-          <Link href="/articles">
-            <ArrowLeft />
-            Articles
-          </Link>
-        </Button>
+      {/* Top: breadcrumbs + actions */}
+      <div className="flex items-start justify-between gap-3">
+        <div className="min-w-0 space-y-1">
+          <Breadcrumbs
+            items={[
+              { label: "Articles", href: "/articles" },
+              { label: article.name },
+            ]}
+          />
+          <Button asChild variant="ghost" size="sm" className="-ml-2 hidden sm:inline-flex">
+            <Link href="/articles">
+              <ArrowLeft />
+              Retour
+            </Link>
+          </Button>
+        </div>
         <ArticleActions articleId={article.id} articleName={article.name} />
       </div>
 
