@@ -146,6 +146,16 @@
   }
 }
 
+@layer base {
+  /* Sidebar width custom property — toggled by the Sidebar component. */
+  :root {
+    --sidebar-w: 15rem; /* 240px */
+  }
+  html.sidebar-collapsed {
+    --sidebar-w: 4rem; /* 64px */
+  }
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;

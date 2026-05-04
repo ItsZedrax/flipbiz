@@ -9,6 +9,7 @@ import { Package } from "lucide-react";
 import { ListToolbar } from "@/components/articles/list-toolbar";
 import { ArticleGridCard } from "@/components/articles/article-grid-card";
 import { ArticleTable } from "@/components/articles/article-table";
+import { PersistArticlesFilters } from "@/components/articles/persist-filters";
 import { Pagination } from "@/components/shared/pagination";
 import { EmptyState } from "@/components/shared/empty-state";
 import {
@@ -99,6 +100,7 @@ export default async function ArticlesPage({
 
   return (
     <div className="mx-auto flex max-w-7xl flex-col gap-5 animate-fade-in">
+      <PersistArticlesFilters />
       <ListToolbar
         totalCount={articlesRes.total}
         buyers={profilesRes.data ?? []}

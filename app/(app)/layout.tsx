@@ -4,6 +4,7 @@ import { Sidebar } from "@/components/layout/sidebar";
 import { BottomNav } from "@/components/layout/bottom-nav";
 import { AppHeader } from "@/components/layout/app-header";
 import { MobileFab } from "@/components/layout/mobile-fab";
+import { CommandPalette } from "@/components/layout/command-palette";
 import { AnnouncementBanner } from "@/components/admin/announcement-banner";
 import { PageTransition } from "@/components/layout/page-transition";
 import { PullToRefresh } from "@/components/layout/pull-to-refresh";
@@ -43,7 +44,7 @@ export default async function AppLayout({
   return (
     <div className="min-h-screen">
       <Sidebar isAdmin={isAdmin} />
-      <div className="flex min-h-screen flex-col lg:pl-60">
+      <div className="flex min-h-screen flex-col transition-[padding] duration-200 lg:pl-[var(--sidebar-w)]">
         <AppHeader
           email={user.email ?? ""}
           fullName={profile?.full_name ?? null}
@@ -66,6 +67,7 @@ export default async function AppLayout({
       </div>
       <BottomNav isAdmin={isAdmin} />
       <MobileFab />
+      <CommandPalette isAdmin={isAdmin} />
     </div>
   );
 }

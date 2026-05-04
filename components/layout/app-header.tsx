@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
+import { Search } from "lucide-react";
 import { SiteLogo } from "@/components/layout/site-logo";
 import { ThemeToggle } from "@/components/layout/theme-toggle";
 import { UserMenu } from "@/components/layout/user-menu";
@@ -67,6 +68,27 @@ export function AppHeader({
       <Link href="/" aria-label="Tableau de bord" className="lg:hidden">
         <SiteLogo />
       </Link>
+      {/* Search trigger (desktop) — opens the command palette via ⌘K. */}
+      <button
+        type="button"
+        onClick={() => {
+          const evt = new KeyboardEvent("keydown", {
+            key: "k",
+            metaKey: true,
+            ctrlKey: true,
+            bubbles: true,
+          });
+          document.dispatchEvent(evt);
+        }}
+        className="ml-4 hidden h-9 items-center gap-2 rounded-md border border-input bg-background/60 px-3 text-sm text-muted-foreground transition-colors hover:bg-accent hover:text-foreground lg:inline-flex lg:w-72"
+        aria-label="Recherche rapide"
+      >
+        <Search className="h-4 w-4" />
+        <span className="flex-1 truncate text-left">Rechercher ou agir…</span>
+        <kbd className="hidden items-center gap-0.5 rounded border bg-muted px-1.5 font-mono text-[10px] sm:inline-flex">
+          ⌘K
+        </kbd>
+      </button>
       <div className="ml-auto flex items-center gap-1">
         <ThemeToggle />
         {hasProfile ? (

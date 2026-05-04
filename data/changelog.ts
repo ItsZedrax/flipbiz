@@ -22,6 +22,33 @@ export type ChangelogEntry = {
  */
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: "0.7.0",
+    date: "2026-05-04",
+    title: "Power user desktop",
+    items: [
+      {
+        type: "new",
+        text: "Recherche rapide ⌘K (ou Ctrl+K) : tape pour aller à n'importe quelle page, créer un article / une vente / un achat / une dépense, ou basculer le thème — sans toucher la souris.",
+      },
+      {
+        type: "new",
+        text: "Sidebar repliable : flèche en bord de sidebar pour la réduire en mode icônes seulement et gagner de l'espace. Préférence sauvegardée d'une session à l'autre.",
+      },
+      {
+        type: "new",
+        text: "Clic-droit sur une carte ou une ligne d'article : menu contextuel avec Ouvrir, Modifier, Vendre, Copier le lien, Supprimer.",
+      },
+      {
+        type: "new",
+        text: "Tri par clic sur les en-têtes de colonnes Article, Coût et Profit dans la liste articles. Re-clique pour inverser asc / desc.",
+      },
+      {
+        type: "improvement",
+        text: "Filtres Articles persistants entre sessions : tu retrouves automatiquement tes derniers filtres / tri / vue à ton retour.",
+      },
+    ],
+  },
+  {
     version: "0.6.1",
     date: "2026-05-04",
     title: "Photo de profil",
