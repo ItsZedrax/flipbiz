@@ -22,6 +22,21 @@ export type ChangelogEntry = {
  */
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: "0.4.1",
+    date: "2026-05-04",
+    title: "Petits raffinements",
+    items: [
+      {
+        type: "fix",
+        text: "La version affichée en bas de la sidebar reflète maintenant la version réelle de l'app.",
+      },
+      {
+        type: "improvement",
+        text: "Clique sur la version en bas de la sidebar pour ouvrir « Quoi de neuf ».",
+      },
+    ],
+  },
+  {
     version: "0.4.0",
     date: "2026-05-04",
     title: "Polish visuel",

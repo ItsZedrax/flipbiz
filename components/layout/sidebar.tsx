@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { ShieldCheck } from "lucide-react";
 import { SiteLogo } from "@/components/layout/site-logo";
 import { NAV_ITEMS, isNavActive } from "@/components/layout/nav-items";
+import { LATEST_VERSION } from "@/data/changelog";
 import { cn } from "@/lib/utils";
 
 export function Sidebar({ isAdmin = false }: { isAdmin?: boolean }) {
@@ -54,9 +55,12 @@ export function Sidebar({ isAdmin = false }: { isAdmin?: boolean }) {
           </>
         ) : null}
       </nav>
-      <div className="border-t px-4 py-3 text-xs text-muted-foreground">
-        FlipBiz · v0.1
-      </div>
+      <Link
+        href="/whats-new"
+        className="border-t px-4 py-3 text-xs text-muted-foreground transition-colors hover:text-foreground"
+      >
+        FlipBiz · v{LATEST_VERSION}
+      </Link>
     </aside>
   );
 }
