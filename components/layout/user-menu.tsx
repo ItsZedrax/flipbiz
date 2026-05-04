@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { LogOut, User, Loader2 } from "lucide-react";
+import { LogOut, Sparkles, User, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { createClient } from "@/lib/supabase/client";
 import {
@@ -15,6 +15,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { UserAvatar } from "@/components/layout/user-avatar";
+import { useWhatsNew } from "@/lib/hooks/use-whats-new";
+import { cn } from "@/lib/utils";
 
 type UserMenuProps = {
   email: string;
@@ -33,6 +35,7 @@ export function UserMenu({
 }: UserMenuProps) {
   const router = useRouter();
   const [pending, setPending] = useState(false);
+  const { hasUnread } = useWhatsNew();
 
   async function onSignOut() {
     setPending(true);
@@ -49,7 +52,7 @@ export function UserMenu({
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="rounded-full ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
+      <DropdownMenuTrigger className="relative rounded-full ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
         <UserAvatar
           fullName={fullName}
           username={username}
@@ -57,6 +60,12 @@ export function UserMenu({
           color={color}
           className="h-9 w-9"
         />
+        {hasUnread ? (
+          <span
+            aria-label="Mises à jour disponibles"
+            className="absolute right-0 top-0 h-2.5 w-2.5 rounded-full bg-hero-gradient ring-2 ring-background"
+          />
+        ) : null}
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-56">
         <DropdownMenuLabel className="font-normal">
@@ -73,6 +82,15 @@ export function UserMenu({
         <DropdownMenuItem asChild>
           <Link href="/profile">
             <User /> Mon profil
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          <Link href="/whats-new" className="relative">
+            <Sparkles className={cn(hasUnread && "text-primary")} />
+            <span className={cn(hasUnread && "font-medium")}>Quoi de neuf</span>
+            {hasUnread ? (
+              <span className="bg-hero-gradient ml-auto h-1.5 w-1.5 rounded-full" />
+            ) : null}
           </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
