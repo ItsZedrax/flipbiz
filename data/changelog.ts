@@ -22,6 +22,17 @@ export type ChangelogEntry = {
  */
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: "0.5.1",
+    date: "2026-05-04",
+    title: "Pull-to-refresh sur mobile",
+    items: [
+      {
+        type: "new",
+        text: "Tire la page vers le bas depuis n'importe quelle vue mobile pour rafraîchir les données — comme dans tes apps natives préférées.",
+      },
+    ],
+  },
+  {
     version: "0.5.0",
     date: "2026-05-04",
     title: "Dashboard vivant + lightbox photos",

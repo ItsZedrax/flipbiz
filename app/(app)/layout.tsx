@@ -8,6 +8,7 @@ import { Sidebar } from "@/components/layout/sidebar";
 import { BottomNav } from "@/components/layout/bottom-nav";
 import { AnnouncementBanner } from "@/components/admin/announcement-banner";
 import { PageTransition } from "@/components/layout/page-transition";
+import { PullToRefresh } from "@/components/layout/pull-to-refresh";
 
 export default async function AppLayout({
   children,
@@ -69,7 +70,9 @@ export default async function AppLayout({
           />
         ) : null}
         <main className="flex-1 px-4 pb-24 pt-6 sm:px-6 lg:px-8 lg:pb-8">
-          <PageTransition>{children}</PageTransition>
+          <PullToRefresh>
+            <PageTransition>{children}</PageTransition>
+          </PullToRefresh>
         </main>
       </div>
       <BottomNav isAdmin={isAdmin} />
