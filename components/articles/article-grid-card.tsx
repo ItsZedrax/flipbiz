@@ -2,9 +2,8 @@ import Link from "next/link";
 import { ImageOff } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { StatusBadge } from "@/components/articles/status-badge";
-import { CategoryIcon } from "@/components/articles/category-icon";
+import { CategoryBadge } from "@/components/articles/category-icon";
 import { SmartImage } from "@/components/shared/smart-image";
-import { CATEGORY_LABELS } from "@/lib/constants";
 import { formatCurrency, cn } from "@/lib/utils";
 import type { ArticleListItem } from "@/lib/queries/articles";
 
@@ -17,7 +16,7 @@ export function ArticleGridCard({ article }: { article: ArticleListItem }) {
       href={`/articles/${article.id}`}
       className="group block focus:outline-none"
     >
-      <Card className="h-full overflow-hidden transition-shadow group-hover:shadow-md group-focus-visible:ring-2 group-focus-visible:ring-ring">
+      <Card className="h-full overflow-hidden transition-all duration-200 group-hover:-translate-y-0.5 group-hover:shadow-lg group-hover:shadow-primary/10 group-focus-visible:ring-2 group-focus-visible:ring-ring">
         <div className="relative aspect-[4/3] w-full overflow-hidden bg-muted">
           {cover ? (
             <SmartImage
@@ -38,14 +37,10 @@ export function ArticleGridCard({ article }: { article: ArticleListItem }) {
           </div>
         </div>
         <div className="p-3">
-          <div className="mb-1 flex items-center gap-1 text-xs text-muted-foreground">
-            <CategoryIcon category={article.category} className="h-3 w-3" />
-            <span>{CATEGORY_LABELS[article.category]}</span>
+          <div className="mb-1 flex items-center gap-1.5 text-xs text-muted-foreground">
+            <CategoryBadge category={article.category} />
             {article.brand ? (
-              <>
-                <span>·</span>
-                <span className="truncate">{article.brand}</span>
-              </>
+              <span className="truncate">{article.brand}</span>
             ) : null}
           </div>
           <h3 className="line-clamp-2 text-sm font-semibold leading-snug">

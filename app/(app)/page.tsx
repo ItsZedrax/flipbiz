@@ -52,41 +52,53 @@ export default async function DashboardPage() {
         <MetricCard
           icon={Wallet}
           label="Capital investi"
-          value={formatCurrency(kpis.capitalInvested)}
+          numericValue={kpis.capitalInvested}
+          format={(n) => formatCurrency(n)}
           hint={`${kpis.inStockCount} articles en stock`}
           tone="default"
         />
         <MetricCard
           icon={Coins}
           label="CA du mois"
-          value={formatCurrency(kpis.monthRevenue)}
+          numericValue={kpis.monthRevenue}
+          format={(n) => formatCurrency(n)}
           hint={`${kpis.monthSalesCount} vente${kpis.monthSalesCount > 1 ? "s" : ""}`}
           tone="default"
+          delta={{ pct: kpis.deltas.monthRevenuePct, label: "vs mois précédent" }}
         />
         <MetricCard
           icon={TrendingUp}
           label="Profit du mois"
-          value={formatCurrency(kpis.monthProfit)}
+          numericValue={kpis.monthProfit}
+          format={(n) => formatCurrency(n)}
           tone={kpis.monthProfit >= 0 ? "hero" : "danger"}
+          delta={{ pct: kpis.deltas.monthProfitPct, label: "vs mois précédent" }}
         />
         <MetricCard
           icon={Percent}
           label="ROI moyen"
-          value={`${kpis.averageRoi}%`}
+          numericValue={kpis.averageRoi}
+          format={(n) => `${n.toFixed(1)}%`}
           hint="sur articles vendus"
           tone={kpis.averageRoi >= 0 ? "success" : "danger"}
         />
         <MetricCard
           icon={Boxes}
           label="En stock"
-          value={`${kpis.inStockCount}`}
+          numericValue={kpis.inStockCount}
+          format={(n) => Math.round(n).toString()}
           tone="default"
         />
         <MetricCard
           icon={ShoppingBag}
           label="Ventes ce mois"
-          value={`${kpis.monthSalesCount}`}
+          numericValue={kpis.monthSalesCount}
+          format={(n) => Math.round(n).toString()}
           tone="default"
+          delta={{
+            pct: kpis.deltas.monthSalesCountPct,
+            label: "vs mois précédent",
+          }}
         />
       </div>
 

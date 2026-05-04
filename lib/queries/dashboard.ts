@@ -10,6 +10,12 @@ export type DashboardKpis = {
   averageRoi: number;
   inStockCount: number;
   monthSalesCount: number;
+  /** Month-to-date deltas vs the same period in the previous month (in %). */
+  deltas: {
+    monthRevenuePct: number | null;
+    monthProfitPct: number | null;
+    monthSalesCountPct: number | null;
+  };
 };
 
 export type MonthlySeries = {
@@ -170,6 +176,43 @@ export async function getDashboardData(
   const monthProfit = profits
     .filter((p) => p.sale_date && p.sale_date >= startOfMonth)
     .reduce((acc, p) => acc + num(p.net_profit), 0);
+
+  // ===== MTD vs previous month (same number of days into the month) =====
+  const dayOfMonth = now.getDate(); // 1..31
+  const startPrevMonth = startOfMonthsAgoISO(now, 1);
+  const prevMtdEnd = (() => {
+    // Same day of month last month, or last day of last month if shorter.
+    const lastMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+    const lastDayOfPrevMonth = new Date(
+      now.getFullYear(),
+      now.getMonth(),
+      0,
+    ).getDate();
+    const targetDay = Math.min(dayOfMonth, lastDayOfPrevMonth);
+    return new Date(lastMonth.getFullYear(), lastMonth.getMonth(), targetDay)
+      .toISOString()
+      .slice(0, 10);
+  })();
+
+  const prevMtdSales = sales12mo.filter(
+    (s) => s.sale_date >= startPrevMonth && s.sale_date <= prevMtdEnd,
+  );
+  const prevMtdRevenue = prevMtdSales.reduce(
+    (acc, s) => acc + num(s.sale_price),
+    0,
+  );
+  const prevMtdSalesCount = prevMtdSales.length;
+  const prevMtdProfit = profits
+    .filter(
+      (p) =>
+        p.sale_date && p.sale_date >= startPrevMonth && p.sale_date <= prevMtdEnd,
+    )
+    .reduce((acc, p) => acc + num(p.net_profit), 0);
+
+  const pctDelta = (curr: number, prev: number): number | null => {
+    if (prev === 0) return curr === 0 ? 0 : null;
+    return ((curr - prev) / Math.abs(prev)) * 100;
+  };
 
   const sold = profits.filter((p) => p.roi_pct !== null);
   const averageRoi =
@@ -378,6 +421,11 @@ export async function getDashboardData(
       averageRoi: Math.round(averageRoi * 10) / 10,
       inStockCount,
       monthSalesCount,
+      deltas: {
+        monthRevenuePct: pctDelta(monthRevenue, prevMtdRevenue),
+        monthProfitPct: pctDelta(monthProfit, prevMtdProfit),
+        monthSalesCountPct: pctDelta(monthSalesCount, prevMtdSalesCount),
+      },
     },
     profitSeries,
     categoryStock,

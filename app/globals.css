@@ -83,9 +83,33 @@
     background-attachment: fixed;
     @apply antialiased;
     font-feature-settings: "rlig" 1, "calt" 1;
+    /* Smooth color transition when toggling light/dark. */
+    transition:
+      color 250ms ease,
+      background-color 250ms ease;
   }
   html {
     @apply scroll-smooth;
+  }
+
+  /* Custom scrollbar — visible everywhere except where hidden by `.scrollbar-thin`. */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--muted-foreground) / 0.25);
+    border-radius: 9999px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--primary) / 0.45);
+    background-clip: padding-box;
+    border: 2px solid transparent;
   }
 }
 

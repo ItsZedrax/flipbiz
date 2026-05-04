@@ -22,6 +22,41 @@ export type ChangelogEntry = {
  */
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: "0.5.0",
+    date: "2026-05-04",
+    title: "Dashboard vivant + lightbox photos",
+    items: [
+      {
+        type: "new",
+        text: "Les chiffres du tableau de bord s'animent à l'arrivée — un compteur fluide de 0 jusqu'à la valeur finale.",
+      },
+      {
+        type: "new",
+        text: "Comparaison vs mois précédent sur le CA, le profit et le nombre de ventes (flèche ↑↓ et %).",
+      },
+      {
+        type: "new",
+        text: "Clique sur une photo d'article pour l'agrandir en plein écran. Swipe pour naviguer entre les photos sur mobile.",
+      },
+      {
+        type: "improvement",
+        text: "Couleurs distinctives par catégorie : sneakers en orange, cartes en ambre, montres en bleu.",
+      },
+      {
+        type: "improvement",
+        text: "Effet hover premium sur les cartes : léger soulèvement et ombre colorée.",
+      },
+      {
+        type: "improvement",
+        text: "Scrollbar fine au design discret, qui se teinte en violet au survol.",
+      },
+      {
+        type: "improvement",
+        text: "Bascule clair / sombre avec transition fluide (plus de flash brutal).",
+      },
+    ],
+  },
+  {
     version: "0.4.2",
     date: "2026-05-04",
     title: "Splash screen iOS",

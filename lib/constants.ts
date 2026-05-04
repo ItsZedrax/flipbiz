@@ -20,6 +20,17 @@ export const CATEGORY_LABELS: Record<Enums<"article_category">, string> = {
   other: "Autre",
 };
 
+/**
+ * Tailwind utility classes per category — used on icons and badges to make
+ * categories visually distinct at a glance.
+ */
+export const CATEGORY_COLORS: Record<Enums<"article_category">, string> = {
+  sneakers: "bg-orange-500/15 text-orange-600 border-orange-500/30 dark:text-orange-400",
+  cards: "bg-amber-500/15 text-amber-600 border-amber-500/30 dark:text-amber-400",
+  watches: "bg-sky-500/15 text-sky-600 border-sky-500/30 dark:text-sky-400",
+  other: "bg-muted text-muted-foreground border-border",
+};
+
 export const CONDITION_LABELS: Record<Enums<"article_condition">, string> = {
   new_unworn: "Neuf jamais porté",
   new_with_tags: "Neuf étiqueté",
