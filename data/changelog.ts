@@ -22,6 +22,17 @@ export type ChangelogEntry = {
  */
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: "0.4.2",
+    date: "2026-05-04",
+    title: "Splash screen iOS",
+    items: [
+      {
+        type: "new",
+        text: "Au lancement de la PWA sur iPhone, un écran d'ouverture sur-mesure s'affiche : logo FlipBiz centré sur le gradient violet → rose.",
+      },
+    ],
+  },
+  {
     version: "0.4.1",
     date: "2026-05-04",
     title: "Petits raffinements",
