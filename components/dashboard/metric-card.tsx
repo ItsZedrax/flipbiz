@@ -2,7 +2,7 @@ import * as React from "react";
 import type { LucideIcon } from "lucide-react";
 import { ArrowDown, ArrowUp, Minus } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-import { CountUp } from "@/components/shared/count-up";
+import { CountUp, type CountUpFormat } from "@/components/shared/count-up";
 import { cn } from "@/lib/utils";
 
 type Tone = "default" | "success" | "danger" | "warning" | "hero";
@@ -24,7 +24,7 @@ type MetricCardProps = {
    * Overrides `value` when both are passed.
    */
   numericValue?: number;
-  format?: (n: number) => string;
+  format?: CountUpFormat;
   hint?: string;
   tone?: Tone;
   delta?: Delta;
@@ -86,7 +86,7 @@ function CardInner({
   label: string;
   value?: string;
   numericValue?: number;
-  format?: (n: number) => string;
+  format?: CountUpFormat;
   hint?: string;
   delta?: Delta;
   iconWrap: string;
@@ -95,8 +95,7 @@ function CardInner({
   hintClass: string;
   hero?: boolean;
 }) {
-  const useAnimated =
-    typeof numericValue === "number" && typeof format === "function";
+  const useAnimated = typeof numericValue === "number" && !!format;
 
   return (
     <CardContent className="relative flex items-center gap-4 p-5">

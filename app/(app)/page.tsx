@@ -9,7 +9,6 @@ import {
 } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { getDashboardData } from "@/lib/queries/dashboard";
-import { formatCurrency } from "@/lib/utils";
 import { MetricCard } from "@/components/dashboard/metric-card";
 import { ChartCard } from "@/components/dashboard/chart-card";
 import { ProfitLineChart } from "@/components/dashboard/profit-line-chart";
@@ -53,7 +52,7 @@ export default async function DashboardPage() {
           icon={Wallet}
           label="Capital investi"
           numericValue={kpis.capitalInvested}
-          format={(n) => formatCurrency(n)}
+          format="currency"
           hint={`${kpis.inStockCount} articles en stock`}
           tone="default"
         />
@@ -61,7 +60,7 @@ export default async function DashboardPage() {
           icon={Coins}
           label="CA du mois"
           numericValue={kpis.monthRevenue}
-          format={(n) => formatCurrency(n)}
+          format="currency"
           hint={`${kpis.monthSalesCount} vente${kpis.monthSalesCount > 1 ? "s" : ""}`}
           tone="default"
           delta={{ pct: kpis.deltas.monthRevenuePct, label: "vs mois précédent" }}
@@ -70,7 +69,7 @@ export default async function DashboardPage() {
           icon={TrendingUp}
           label="Profit du mois"
           numericValue={kpis.monthProfit}
-          format={(n) => formatCurrency(n)}
+          format="currency"
           tone={kpis.monthProfit >= 0 ? "hero" : "danger"}
           delta={{ pct: kpis.deltas.monthProfitPct, label: "vs mois précédent" }}
         />
@@ -78,7 +77,7 @@ export default async function DashboardPage() {
           icon={Percent}
           label="ROI moyen"
           numericValue={kpis.averageRoi}
-          format={(n) => `${n.toFixed(1)}%`}
+          format="percent-1"
           hint="sur articles vendus"
           tone={kpis.averageRoi >= 0 ? "success" : "danger"}
         />
@@ -86,14 +85,14 @@ export default async function DashboardPage() {
           icon={Boxes}
           label="En stock"
           numericValue={kpis.inStockCount}
-          format={(n) => Math.round(n).toString()}
+          format="integer"
           tone="default"
         />
         <MetricCard
           icon={ShoppingBag}
           label="Ventes ce mois"
           numericValue={kpis.monthSalesCount}
-          format={(n) => Math.round(n).toString()}
+          format="integer"
           tone="default"
           delta={{
             pct: kpis.deltas.monthSalesCountPct,

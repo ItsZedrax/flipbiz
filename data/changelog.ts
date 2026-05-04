@@ -22,6 +22,17 @@ export type ChangelogEntry = {
  */
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: "0.5.2",
+    date: "2026-05-04",
+    title: "Correctif tableau de bord",
+    items: [
+      {
+        type: "fix",
+        text: "Le tableau de bord affichait une erreur en production à cause d'un format de chiffres incompatible — c'est réparé.",
+      },
+    ],
+  },
+  {
     version: "0.5.1",
     date: "2026-05-04",
     title: "Pull-to-refresh sur mobile",

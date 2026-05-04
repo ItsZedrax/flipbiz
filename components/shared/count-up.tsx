@@ -1,21 +1,40 @@
 "use client";
 
 import * as React from "react";
+import { formatCurrency } from "@/lib/utils";
+
+export type CountUpFormat =
+  | "currency"
+  | "integer"
+  | "percent-1"
+  | "percent-0";
+
+function formatNumber(value: number, format: CountUpFormat): string {
+  switch (format) {
+    case "currency":
+      return formatCurrency(Math.round(value));
+    case "integer":
+      return Math.round(value).toString();
+    case "percent-1":
+      return `${value.toFixed(1)}%`;
+    case "percent-0":
+      return `${Math.round(value)}%`;
+  }
+}
 
 type CountUpProps = {
   value: number;
-  format: (n: number) => string;
+  format: CountUpFormat;
   /** Animation duration in ms. */
   duration?: number;
 };
 
 /**
- * Tweens a numeric value from 0 → `value` (or from previous → new) over
- * `duration` ms with an ease-out curve. Renders the running value via
- * `format`. Re-runs the animation when `value` changes.
+ * Tweens a numeric value from previous → new over `duration` ms with an
+ * ease-out curve. Format is a string (not a function) so it stays
+ * serializable across the server/client component boundary.
  */
 export function CountUp({ value, format, duration = 800 }: CountUpProps) {
-  // SSR + first paint show the final formatted value to avoid layout shift.
   const [display, setDisplay] = React.useState<number>(value);
   const fromRef = React.useRef<number>(0);
   const startedRef = React.useRef(false);
@@ -51,5 +70,5 @@ export function CountUp({ value, format, duration = 800 }: CountUpProps) {
     return () => cancelAnimationFrame(raf);
   }, [value, duration]);
 
-  return <>{format(display)}</>;
+  return <>{formatNumber(display, format)}</>;
 }
