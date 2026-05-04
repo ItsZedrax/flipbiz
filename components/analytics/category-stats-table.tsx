@@ -19,11 +19,11 @@ export function CategoryStatsTable({ stats }: { stats: CategoryStat[] }) {
         <TableHeader>
           <TableRow>
             <TableHead>Catégorie</TableHead>
-            <TableHead className="text-right">Ventes</TableHead>
-            <TableHead className="text-right">CA net</TableHead>
+            <TableHead className="hidden text-right sm:table-cell">Ventes</TableHead>
+            <TableHead className="hidden text-right md:table-cell">CA net</TableHead>
             <TableHead className="text-right">Profit</TableHead>
-            <TableHead className="text-right">ROI moy.</TableHead>
-            <TableHead className="text-right">Délai moy.</TableHead>
+            <TableHead className="hidden text-right md:table-cell">ROI moy.</TableHead>
+            <TableHead className="hidden text-right lg:table-cell">Délai moy.</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -40,15 +40,20 @@ export function CategoryStatsTable({ stats }: { stats: CategoryStat[] }) {
                       category={c.category}
                       className="h-4 w-4 text-muted-foreground"
                     />
-                    <span className="text-sm font-medium">
-                      {CATEGORY_LABELS[c.category]}
-                    </span>
+                    <div className="min-w-0">
+                      <span className="block text-sm font-medium">
+                        {CATEGORY_LABELS[c.category]}
+                      </span>
+                      <span className="block text-[11px] text-muted-foreground sm:hidden">
+                        {c.salesCount} vente{c.salesCount > 1 ? "s" : ""}
+                      </span>
+                    </div>
                   </div>
                 </TableCell>
-                <TableCell className="text-right tabular-nums">
+                <TableCell className="hidden text-right tabular-nums sm:table-cell">
                   {c.salesCount}
                 </TableCell>
-                <TableCell className="text-right tabular-nums">
+                <TableCell className="hidden text-right tabular-nums md:table-cell">
                   {formatCurrency(c.revenue)}
                 </TableCell>
                 <TableCell
@@ -60,11 +65,11 @@ export function CategoryStatsTable({ stats }: { stats: CategoryStat[] }) {
                   {c.profit >= 0 ? "+" : ""}
                   {formatCurrency(c.profit)}
                 </TableCell>
-                <TableCell className="text-right tabular-nums text-muted-foreground">
+                <TableCell className="hidden text-right tabular-nums text-muted-foreground md:table-cell">
                   {c.avgRoi >= 0 ? "+" : ""}
                   {c.avgRoi.toFixed(1)}%
                 </TableCell>
-                <TableCell className="text-right tabular-nums text-muted-foreground">
+                <TableCell className="hidden text-right tabular-nums text-muted-foreground lg:table-cell">
                   {c.avgDaysHeld}j
                 </TableCell>
               </TableRow>

@@ -22,6 +22,29 @@ export type ChangelogEntry = {
  */
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: "0.5.3",
+    date: "2026-05-04",
+    title: "Layout mobile + toasts + scrollbar",
+    items: [
+      {
+        type: "fix",
+        text: "Plus de défilement horizontal parasite : les tables analytics adaptent leurs colonnes à la largeur de l'écran.",
+      },
+      {
+        type: "improvement",
+        text: "Toasts plus riches : couleurs sémantiques (succès vert, erreur rouge), icônes adaptées, bouton de fermeture, jusqu'à 4 visibles.",
+      },
+      {
+        type: "improvement",
+        text: "Scrollbar fine qui se teinte d'un dégradé violet → rose au survol.",
+      },
+      {
+        type: "improvement",
+        text: "Bascule clair / sombre étendue à plus de surfaces (sidebar, header, cards, inputs) pour un cross-fade homogène en 200ms.",
+      },
+    ],
+  },
+  {
     version: "0.5.2",
     date: "2026-05-04",
     title: "Correctif tableau de bord",

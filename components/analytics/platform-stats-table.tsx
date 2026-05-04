@@ -17,8 +17,8 @@ export function PlatformStatsTable({ stats }: { stats: PlatformStat[] }) {
         <TableHeader>
           <TableRow>
             <TableHead>Plateforme</TableHead>
-            <TableHead className="text-right">Ventes</TableHead>
-            <TableHead className="text-right">CA net</TableHead>
+            <TableHead className="hidden text-right sm:table-cell">Ventes</TableHead>
+            <TableHead className="hidden text-right md:table-cell">CA net</TableHead>
             <TableHead className="text-right">Profit</TableHead>
           </TableRow>
         </TableHeader>
@@ -30,13 +30,16 @@ export function PlatformStatsTable({ stats }: { stats: PlatformStat[] }) {
           ) : (
             stats.map((p) => (
               <TableRow key={p.platform}>
-                <TableCell className="text-sm font-medium">
-                  {p.platform}
+                <TableCell>
+                  <span className="block text-sm font-medium">{p.platform}</span>
+                  <span className="block text-[11px] text-muted-foreground sm:hidden">
+                    {p.salesCount} vente{p.salesCount > 1 ? "s" : ""}
+                  </span>
                 </TableCell>
-                <TableCell className="text-right tabular-nums">
+                <TableCell className="hidden text-right tabular-nums sm:table-cell">
                   {p.salesCount}
                 </TableCell>
-                <TableCell className="text-right tabular-nums">
+                <TableCell className="hidden text-right tabular-nums md:table-cell">
                   {formatCurrency(p.revenue)}
                 </TableCell>
                 <TableCell

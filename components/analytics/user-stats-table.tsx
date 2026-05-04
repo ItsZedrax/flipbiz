@@ -18,10 +18,10 @@ export function UserStatsTable({ stats }: { stats: UserStat[] }) {
         <TableHeader>
           <TableRow>
             <TableHead>Associé</TableHead>
-            <TableHead className="text-right">Achetés</TableHead>
-            <TableHead className="text-right">Investi</TableHead>
-            <TableHead className="text-right">Vendus</TableHead>
-            <TableHead className="text-right">Encaissé</TableHead>
+            <TableHead className="hidden text-right sm:table-cell">Achetés</TableHead>
+            <TableHead className="hidden text-right md:table-cell">Investi</TableHead>
+            <TableHead className="hidden text-right sm:table-cell">Vendus</TableHead>
+            <TableHead className="hidden text-right md:table-cell">Encaissé</TableHead>
             <TableHead className="text-right">Profit</TableHead>
           </TableRow>
         </TableHeader>
@@ -39,21 +39,26 @@ export function UserStatsTable({ stats }: { stats: UserStat[] }) {
                       color={u.color}
                       className="h-7 w-7 text-[10px]"
                     />
-                    <span className="text-sm font-medium">
-                      {u.fullName ?? u.username}
-                    </span>
+                    <div className="min-w-0">
+                      <span className="block truncate text-sm font-medium">
+                        {u.fullName ?? u.username}
+                      </span>
+                      <span className="block text-[11px] text-muted-foreground sm:hidden">
+                        {u.bought} achetés · {u.sold} vendus
+                      </span>
+                    </div>
                   </div>
                 </TableCell>
-                <TableCell className="text-right tabular-nums">
+                <TableCell className="hidden text-right tabular-nums sm:table-cell">
                   {u.bought}
                 </TableCell>
-                <TableCell className="text-right tabular-nums text-muted-foreground">
+                <TableCell className="hidden text-right tabular-nums text-muted-foreground md:table-cell">
                   {formatCurrency(u.spent)}
                 </TableCell>
-                <TableCell className="text-right tabular-nums">
+                <TableCell className="hidden text-right tabular-nums sm:table-cell">
                   {u.sold}
                 </TableCell>
-                <TableCell className="text-right tabular-nums text-muted-foreground">
+                <TableCell className="hidden text-right tabular-nums text-muted-foreground md:table-cell">
                   {formatCurrency(u.revenue)}
                 </TableCell>
                 <TableCell
