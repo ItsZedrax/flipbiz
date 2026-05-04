@@ -22,6 +22,17 @@ export type ChangelogEntry = {
  */
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: "0.6.1",
+    date: "2026-05-04",
+    title: "Photo de profil",
+    items: [
+      {
+        type: "new",
+        text: "Ajoute une vraie photo de profil depuis Mon profil — elle remplace tes initiales colorées dans le menu, à côté des ventes et partout où ton avatar apparaît.",
+      },
+    ],
+  },
+  {
     version: "0.6.0",
     date: "2026-05-04",
     title: "Navigation premium",
