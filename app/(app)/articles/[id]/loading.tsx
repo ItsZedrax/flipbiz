@@ -1,5 +1,5 @@
-import { PageSkeleton } from "@/components/shared/skeletons";
+import { DetailSkeleton } from "@/components/shared/skeletons";
 
 export default function Loading() {
-  return <PageSkeleton kpis={0} rows={6} />;
+  return <DetailSkeleton />;
 }

@@ -1,9 +1,9 @@
 import Link from "next/link";
-import Image from "next/image";
 import { ImageOff } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { StatusBadge } from "@/components/articles/status-badge";
 import { CategoryIcon } from "@/components/articles/category-icon";
+import { SmartImage } from "@/components/shared/smart-image";
 import { CATEGORY_LABELS } from "@/lib/constants";
 import { formatCurrency, cn } from "@/lib/utils";
 import type { ArticleListItem } from "@/lib/queries/articles";
@@ -20,7 +20,7 @@ export function ArticleGridCard({ article }: { article: ArticleListItem }) {
       <Card className="h-full overflow-hidden transition-shadow group-hover:shadow-md group-focus-visible:ring-2 group-focus-visible:ring-ring">
         <div className="relative aspect-[4/3] w-full overflow-hidden bg-muted">
           {cover ? (
-            <Image
+            <SmartImage
               src={cover}
               alt={article.name}
               fill

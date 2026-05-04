@@ -3,6 +3,7 @@
 import * as React from "react";
 import Image from "next/image";
 import { ImageOff } from "lucide-react";
+import { SmartImage } from "@/components/shared/smart-image";
 import { cn } from "@/lib/utils";
 
 export function PhotoGallery({
@@ -27,7 +28,7 @@ export function PhotoGallery({
     <div className="space-y-2">
       <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg border bg-muted">
         {main ? (
-          <Image
+          <SmartImage
             src={main}
             alt={alt}
             fill

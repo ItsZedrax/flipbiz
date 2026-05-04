@@ -5,10 +5,12 @@ import {
   type ArticleFilters,
   type ArticleSort,
 } from "@/lib/queries/articles";
+import { Package } from "lucide-react";
 import { ListToolbar } from "@/components/articles/list-toolbar";
 import { ArticleGridCard } from "@/components/articles/article-grid-card";
 import { ArticleTable } from "@/components/articles/article-table";
 import { Pagination } from "@/components/shared/pagination";
+import { EmptyState } from "@/components/shared/empty-state";
 import {
   ARTICLE_CATEGORIES,
   ARTICLE_CONDITIONS,
@@ -102,18 +104,31 @@ export default async function ArticlesPage({
         buyers={profilesRes.data ?? []}
       />
 
-      {view === "grid" ? (
-        articlesRes.items.length === 0 ? (
-          <div className="rounded-md border bg-card py-16 text-center text-sm text-muted-foreground">
-            Aucun article ne correspond à ces filtres.
-          </div>
-        ) : (
-          <div className="grid gap-3 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-            {articlesRes.items.map((a) => (
-              <ArticleGridCard key={a.id} article={a} />
-            ))}
-          </div>
-        )
+      {articlesRes.items.length === 0 ? (
+        <EmptyState
+          icon={Package}
+          title={
+            articlesRes.total === 0
+              ? "Aucun article pour l'instant"
+              : "Aucun article ne correspond à ces filtres"
+          }
+          description={
+            articlesRes.total === 0
+              ? "Ajoute ton premier article pour commencer à suivre ton stock."
+              : "Essaie d'élargir ou de réinitialiser tes filtres."
+          }
+          action={
+            articlesRes.total === 0
+              ? { label: "Ajouter un article", href: "/articles/new" }
+              : undefined
+          }
+        />
+      ) : view === "grid" ? (
+        <div className="grid gap-3 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+          {articlesRes.items.map((a) => (
+            <ArticleGridCard key={a.id} article={a} />
+          ))}
+        </div>
       ) : (
         <ArticleTable items={articlesRes.items} />
       )}

@@ -67,7 +67,7 @@ export default async function DashboardPage() {
           icon={TrendingUp}
           label="Profit du mois"
           value={formatCurrency(kpis.monthProfit)}
-          tone={kpis.monthProfit >= 0 ? "success" : "danger"}
+          tone={kpis.monthProfit >= 0 ? "hero" : "danger"}
         />
         <MetricCard
           icon={Percent}

@@ -3,11 +3,12 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ImageOff, Search } from "lucide-react";
+import { ImageOff, Package, Search } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { CATEGORY_LABELS } from "@/lib/constants";
 import { formatCurrency } from "@/lib/utils";
+import { EmptyState } from "@/components/shared/empty-state";
 import type { InStockArticle } from "@/lib/queries/sales";
 
 export function ArticlePicker({ articles }: { articles: InStockArticle[] }) {
@@ -23,11 +24,12 @@ export function ArticlePicker({ articles }: { articles: InStockArticle[] }) {
 
   if (articles.length === 0) {
     return (
-      <Card className="py-16 text-center">
-        <p className="text-sm text-muted-foreground">
-          Aucun article en stock à vendre. Ajoute d&apos;abord un article.
-        </p>
-      </Card>
+      <EmptyState
+        icon={Package}
+        title="Aucun article en stock"
+        description="Ajoute d'abord un article avant de pouvoir enregistrer une vente."
+        action={{ label: "Ajouter un article", href: "/articles/new" }}
+      />
     );
   }
 

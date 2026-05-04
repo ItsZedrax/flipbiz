@@ -7,6 +7,7 @@ import { UserMenu } from "@/components/layout/user-menu";
 import { Sidebar } from "@/components/layout/sidebar";
 import { BottomNav } from "@/components/layout/bottom-nav";
 import { AnnouncementBanner } from "@/components/admin/announcement-banner";
+import { PageTransition } from "@/components/layout/page-transition";
 
 export default async function AppLayout({
   children,
@@ -44,7 +45,7 @@ export default async function AppLayout({
     <div className="min-h-screen">
       <Sidebar isAdmin={isAdmin} />
       <div className="flex min-h-screen flex-col lg:pl-60">
-        <header className="sticky top-0 z-20 flex h-[calc(3.5rem+env(safe-area-inset-top))] items-center justify-between border-b bg-background/80 px-4 pt-[env(safe-area-inset-top)] backdrop-blur sm:px-6">
+        <header className="glass-strong sticky top-0 z-20 flex h-[calc(3.5rem+env(safe-area-inset-top))] items-center justify-between border-b px-4 pt-[env(safe-area-inset-top)] sm:px-6">
           <Link href="/" aria-label="Tableau de bord" className="lg:hidden">
             <SiteLogo />
           </Link>
@@ -68,7 +69,7 @@ export default async function AppLayout({
           />
         ) : null}
         <main className="flex-1 px-4 pb-24 pt-6 sm:px-6 lg:px-8 lg:pb-8">
-          {children}
+          <PageTransition>{children}</PageTransition>
         </main>
       </div>
       <BottomNav isAdmin={isAdmin} />

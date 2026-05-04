@@ -9,6 +9,7 @@ import { Loader2 } from "lucide-react";
 import Image from "next/image";
 import { ImageOff } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
+import { celebrateFirstSale } from "@/lib/confetti";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import {
@@ -73,6 +74,11 @@ export function NewSaleForm({
     setPending(true);
     const supabase = createClient();
 
+    // Detect first-ever sale (across the workspace) so we can celebrate.
+    const { count: priorCount } = await supabase
+      .from("sales")
+      .select("id", { count: "exact", head: true });
+
     const { error } = await supabase.from("sales").insert({
       article_id: values.article_id,
       seller_id: values.seller_id,
@@ -95,7 +101,14 @@ export function NewSaleForm({
       return;
     }
 
-    toast.success("Vente enregistrée");
+    if ((priorCount ?? 0) === 0) {
+      celebrateFirstSale();
+      toast.success("Première vente enregistrée 🎉", {
+        description: "Bravo ! Que ce soit la première d'une longue série.",
+      });
+    } else {
+      toast.success("Vente enregistrée");
+    }
     router.push(`/articles/${values.article_id}`);
     router.refresh();
   }

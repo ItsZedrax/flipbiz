@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
 export function Sidebar({ isAdmin = false }: { isAdmin?: boolean }) {
   const pathname = usePathname();
   return (
-    <aside className="hidden h-screen w-60 shrink-0 flex-col border-r bg-background lg:fixed lg:inset-y-0 lg:left-0 lg:flex">
+    <aside className="glass hidden h-screen w-60 shrink-0 flex-col border-r lg:fixed lg:inset-y-0 lg:left-0 lg:flex">
       <div className="flex h-14 items-center border-b px-4">
         <Link href="/" aria-label="Tableau de bord">
           <SiteLogo />
