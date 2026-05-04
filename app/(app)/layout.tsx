@@ -6,6 +6,7 @@ import { ThemeToggle } from "@/components/layout/theme-toggle";
 import { UserMenu } from "@/components/layout/user-menu";
 import { Sidebar } from "@/components/layout/sidebar";
 import { BottomNav } from "@/components/layout/bottom-nav";
+import { AnnouncementBanner } from "@/components/admin/announcement-banner";
 
 export default async function AppLayout({
   children,
@@ -20,13 +21,28 @@ export default async function AppLayout({
 
   const { data: profile } = await supabase
     .from("profiles")
-    .select("id, username, full_name, avatar_url, color")
+    .select("id, username, full_name, avatar_url, color, is_admin, is_approved")
     .eq("id", user.id)
     .single();
 
+  // Gate access: pending users must wait for admin approval.
+  if (profile && !profile.is_approved && !profile.is_admin) {
+    redirect("/pending");
+  }
+
+  const { data: announcement } = await supabase
+    .from("announcements")
+    .select("id, message, type")
+    .eq("is_active", true)
+    .order("created_at", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+
+  const isAdmin = profile?.is_admin ?? false;
+
   return (
     <div className="min-h-screen">
-      <Sidebar />
+      <Sidebar isAdmin={isAdmin} />
       <div className="flex min-h-screen flex-col lg:pl-60">
         <header className="sticky top-0 z-20 flex h-[calc(3.5rem+env(safe-area-inset-top))] items-center justify-between border-b bg-background/80 px-4 pt-[env(safe-area-inset-top)] backdrop-blur sm:px-6">
           <Link href="/" aria-label="Tableau de bord" className="lg:hidden">
@@ -45,11 +61,17 @@ export default async function AppLayout({
             ) : null}
           </div>
         </header>
+        {announcement ? (
+          <AnnouncementBanner
+            message={announcement.message}
+            type={announcement.type}
+          />
+        ) : null}
         <main className="flex-1 px-4 pb-24 pt-6 sm:px-6 lg:px-8 lg:pb-8">
           {children}
         </main>
       </div>
-      <BottomNav />
+      <BottomNav isAdmin={isAdmin} />
     </div>
   );
 }

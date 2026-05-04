@@ -2,11 +2,19 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { ShieldCheck } from "lucide-react";
 import { MOBILE_NAV_ITEMS, isNavActive } from "@/components/layout/nav-items";
 import { cn } from "@/lib/utils";
 
-export function BottomNav() {
+export function BottomNav({ isAdmin = false }: { isAdmin?: boolean }) {
   const pathname = usePathname();
+  // Drop "Paramètres" to keep 5 slots when admin is active.
+  const items = isAdmin
+    ? [
+        ...MOBILE_NAV_ITEMS.filter((i) => i.href !== "/settings"),
+        { href: "/admin", label: "Admin", icon: ShieldCheck, mobile: true },
+      ]
+    : MOBILE_NAV_ITEMS;
   return (
     <nav
       className="fixed inset-x-0 bottom-0 z-30 border-t bg-background/95 backdrop-blur lg:hidden"
@@ -14,7 +22,7 @@ export function BottomNav() {
       aria-label="Navigation principale"
     >
       <ul className="grid grid-cols-5">
-        {MOBILE_NAV_ITEMS.map((item) => {
+        {items.map((item) => {
           const active = isNavActive(pathname, item.href);
           const Icon = item.icon;
           return (

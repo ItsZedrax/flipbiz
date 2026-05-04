@@ -20,6 +20,8 @@ export type Database = {
           avatar_url: string | null;
           color: string;
           monthly_profit_goal: number | null;
+          is_admin: boolean;
+          is_approved: boolean;
           created_at: string;
           updated_at: string;
         };
@@ -30,6 +32,8 @@ export type Database = {
           avatar_url?: string | null;
           color?: string;
           monthly_profit_goal?: number | null;
+          is_admin?: boolean;
+          is_approved?: boolean;
           created_at?: string;
           updated_at?: string;
         };
@@ -40,7 +44,35 @@ export type Database = {
           avatar_url?: string | null;
           color?: string;
           monthly_profit_goal?: number | null;
+          is_admin?: boolean;
+          is_approved?: boolean;
           updated_at?: string;
+        };
+        Relationships: [];
+      };
+      announcements: {
+        Row: {
+          id: string;
+          message: string;
+          type: "info" | "warning" | "danger";
+          is_active: boolean;
+          created_at: string;
+          created_by: string | null;
+        };
+        Insert: {
+          id?: string;
+          message: string;
+          type?: "info" | "warning" | "danger";
+          is_active?: boolean;
+          created_at?: string;
+          created_by?: string | null;
+        };
+        Update: {
+          id?: string;
+          message?: string;
+          type?: "info" | "warning" | "danger";
+          is_active?: boolean;
+          created_by?: string | null;
         };
         Relationships: [];
       };
@@ -320,7 +352,10 @@ export type Database = {
       };
     };
     Functions: {
-      [_ in never]: never;
+      delete_user_cascade: {
+        Args: { target_user: string };
+        Returns: void;
+      };
     };
     Enums: {
       article_category: "sneakers" | "cards" | "watches" | "other";
