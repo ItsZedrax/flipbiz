@@ -22,6 +22,17 @@ export type ChangelogEntry = {
  */
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: "0.7.1",
+    date: "2026-05-05",
+    title: "Recadrage de la photo de profil",
+    items: [
+      {
+        type: "improvement",
+        text: "Quand tu ajoutes une photo de profil, une fenêtre te permet de la recadrer en carré (déplacer + zoomer) avant l'upload — fini les visages écrasés.",
+      },
+    ],
+  },
+  {
     version: "0.7.0",
     date: "2026-05-04",
     title: "Power user desktop",

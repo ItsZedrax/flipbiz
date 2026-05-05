@@ -7,6 +7,7 @@ import { toast } from "sonner";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
 import { UserAvatar } from "@/components/layout/user-avatar";
+import { AvatarCropper } from "@/components/auth/avatar-cropper";
 
 const MAX_BYTES = 4 * 1024 * 1024; // 4 MB
 const ACCEPT = "image/png,image/jpeg,image/webp";
@@ -29,12 +30,14 @@ export function AvatarUploader({
   const router = useRouter();
   const inputRef = React.useRef<HTMLInputElement>(null);
   const [pending, setPending] = React.useState(false);
-  // Optimistic preview while uploading.
+  // Source URL for the picker dialog.
+  const [cropSrc, setCropSrc] = React.useState<string | null>(null);
+  // Optimistic preview after crop, before upload completes.
   const [preview, setPreview] = React.useState<string | null>(null);
 
   const displayedUrl = preview ?? avatarUrl;
 
-  async function handleSelect(e: React.ChangeEvent<HTMLInputElement>) {
+  function handleSelect(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     e.target.value = ""; // allow re-uploading the same file
     if (!file) return;
@@ -50,18 +53,29 @@ export function AvatarUploader({
       return;
     }
 
-    const localUrl = URL.createObjectURL(file);
+    // Open the crop dialog with this image.
+    const url = URL.createObjectURL(file);
+    setCropSrc(url);
+  }
+
+  async function handleCropConfirm(blob: Blob) {
+    if (!cropSrc) return;
+    const localUrl = URL.createObjectURL(blob);
     setPreview(localUrl);
+    setCropSrc(null);
     setPending(true);
 
     const supabase = createClient();
-    const ext = file.name.split(".").pop()?.toLowerCase() || "png";
-    const path = `${userId}/avatar-${Date.now()}.${ext}`;
+    const path = `${userId}/avatar-${Date.now()}.jpg`;
 
     try {
       const { error: uploadErr } = await supabase.storage
         .from("avatars")
-        .upload(path, file, { upsert: true, cacheControl: "3600" });
+        .upload(path, blob, {
+          upsert: true,
+          cacheControl: "3600",
+          contentType: "image/jpeg",
+        });
       if (uploadErr) throw uploadErr;
 
       const {
@@ -100,12 +114,15 @@ export function AvatarUploader({
     }
   }
 
+  function handleCropCancel() {
+    setCropSrc(null);
+  }
+
   async function handleRemove() {
     if (!avatarUrl) return;
     setPending(true);
     const supabase = createClient();
     try {
-      // Remove every avatar file in this user's folder.
       const { data: list } = await supabase.storage
         .from("avatars")
         .list(userId);
@@ -131,58 +148,67 @@ export function AvatarUploader({
   }
 
   return (
-    <div className="flex items-center gap-4">
-      <div className="relative">
-        <UserAvatar
-          fullName={fullName}
-          username={username}
-          avatarUrl={displayedUrl}
-          color={color}
-          className="h-20 w-20 text-xl"
-        />
-        {pending ? (
-          <div className="absolute inset-0 grid place-items-center rounded-full bg-black/50 backdrop-blur-sm">
-            <Loader2 className="h-5 w-5 animate-spin text-white" />
-          </div>
-        ) : null}
-      </div>
-      <div className="space-y-2">
-        <input
-          ref={inputRef}
-          type="file"
-          accept={ACCEPT}
-          className="hidden"
-          onChange={handleSelect}
-        />
-        <div className="flex flex-wrap gap-2">
-          <Button
-            type="button"
-            variant="outline"
-            size="sm"
-            disabled={pending}
-            onClick={() => inputRef.current?.click()}
-          >
-            <Camera />
-            {avatarUrl ? "Changer la photo" : "Ajouter une photo"}
-          </Button>
-          {avatarUrl ? (
-            <Button
-              type="button"
-              variant="ghost"
-              size="sm"
-              disabled={pending}
-              onClick={handleRemove}
-              className="text-destructive hover:text-destructive"
-            >
-              <Trash2 />
-              Retirer
-            </Button>
+    <>
+      <div className="flex items-center gap-4">
+        <div className="relative">
+          <UserAvatar
+            fullName={fullName}
+            username={username}
+            avatarUrl={displayedUrl}
+            color={color}
+            className="h-20 w-20 text-xl"
+          />
+          {pending ? (
+            <div className="absolute inset-0 grid place-items-center rounded-full bg-black/50 backdrop-blur-sm">
+              <Loader2 className="h-5 w-5 animate-spin text-white" />
+            </div>
           ) : null}
         </div>
-        <p className="text-xs text-muted-foreground">
-          PNG, JPEG ou WebP · 4 Mo max
-        </p>
+        <div className="space-y-2">
+          <input
+            ref={inputRef}
+            type="file"
+            accept={ACCEPT}
+            className="hidden"
+            onChange={handleSelect}
+          />
+          <div className="flex flex-wrap gap-2">
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              disabled={pending}
+              onClick={() => inputRef.current?.click()}
+            >
+              <Camera />
+              {avatarUrl ? "Changer la photo" : "Ajouter une photo"}
+            </Button>
+            {avatarUrl ? (
+              <Button
+                type="button"
+                variant="ghost"
+                size="sm"
+                disabled={pending}
+                onClick={handleRemove}
+                className="text-destructive hover:text-destructive"
+              >
+                <Trash2 />
+                Retirer
+              </Button>
+            ) : null}
+          </div>
+          <p className="text-xs text-muted-foreground">
+            PNG, JPEG ou WebP · 4 Mo max · recadrée en carré 512×512
+          </p>
+        </div>
       </div>
-    </div>
+
+      <AvatarCropper
+        open={cropSrc !== null}
+        imageSrc={cropSrc}
+        onCancel={handleCropCancel}
+        onConfirm={handleCropConfirm}
+      />
+    </>
   );
 }
