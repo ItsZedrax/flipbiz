@@ -97,7 +97,7 @@ export function ExpenseListToolbar({
             au total
           </p>
         </div>
-        <Button asChild>
+        <Button asChild className="hidden sm:inline-flex">
           <Link href="/expenses/new">
             <Plus />
             Nouvelle dépense

@@ -114,7 +114,8 @@ export function ListToolbar({
             {hasFilters ? " (filtré)" : ""}
           </p>
         </div>
-        <Button asChild>
+        {/* Hidden on mobile — the contextual FAB handles creation there. */}
+        <Button asChild className="hidden sm:inline-flex">
           <Link href="/articles/new">
             <Plus />
             Nouvel article

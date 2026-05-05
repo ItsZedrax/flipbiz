@@ -22,6 +22,21 @@ export type ChangelogEntry = {
  */
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: "0.7.2",
+    date: "2026-05-05",
+    title: "Mobile : moins de doublons, nav plus pertinente",
+    items: [
+      {
+        type: "fix",
+        text: "Plus de bouton « + Article / + Vente / + Dépense » dupliqué sur mobile : le bouton flottant suffit (ces boutons restent visibles sur desktop).",
+      },
+      {
+        type: "improvement",
+        text: "Bottom nav réorganisée : Tableau de bord · Articles · Ventes · Achats · Analytics. Stock, Dépenses et Paramètres restent accessibles via le menu et la sidebar desktop.",
+      },
+    ],
+  },
+  {
     version: "0.7.1",
     date: "2026-05-05",
     title: "Recadrage de la photo de profil",

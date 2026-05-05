@@ -36,7 +36,7 @@ const QUICK_ACTIONS: Array<{
 }> = [
   { label: "Nouvel article", href: "/articles/new", icon: Plus, keywords: "ajouter créer add" },
   { label: "Nouvelle vente", href: "/sales/new", icon: Plus, keywords: "vendre add" },
-  { label: "Nouvel achat", href: "/purchases/new", icon: Plus, keywords: "acheter add" },
+  { label: "Nouvel achat", href: "/articles/new", icon: Plus, keywords: "acheter add purchase article" },
   { label: "Nouvelle dépense", href: "/expenses/new", icon: Plus, keywords: "frais add" },
 ];
 

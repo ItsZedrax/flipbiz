@@ -83,7 +83,7 @@ export function SaleListToolbar({ totalCount, sellers }: Props) {
             {hasFilters ? " (filtré)" : ""}
           </p>
         </div>
-        <Button asChild>
+        <Button asChild className="hidden sm:inline-flex">
           <Link href="/sales/new">
             <Plus />
             Nouvelle vente

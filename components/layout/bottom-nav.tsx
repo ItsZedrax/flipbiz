@@ -8,11 +8,11 @@ import { cn } from "@/lib/utils";
 
 export function BottomNav({ isAdmin = false }: { isAdmin?: boolean }) {
   const pathname = usePathname();
-  // Drop "Paramètres" to keep 5 slots when admin is active.
+  // Admins replace Analytics with the Admin shortcut to keep 5 slots.
   const items = isAdmin
     ? [
-        ...MOBILE_NAV_ITEMS.filter((i) => i.href !== "/settings"),
-        { href: "/admin", label: "Admin", icon: ShieldCheck, mobile: true },
+        ...MOBILE_NAV_ITEMS.filter((i) => i.href !== "/analytics"),
+        { href: "/admin", label: "Admin", icon: ShieldCheck },
       ]
     : MOBILE_NAV_ITEMS;
 
