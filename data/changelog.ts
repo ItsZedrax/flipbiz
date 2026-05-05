@@ -22,6 +22,25 @@ export type ChangelogEntry = {
  */
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: "0.7.3",
+    date: "2026-05-05",
+    title: "Verrou largeur + nav mobile peaufinée",
+    items: [
+      {
+        type: "fix",
+        text: "Toutes les pages ont désormais la même largeur exacte sur mobile : plus aucun décalage horizontal possible, gestes de slide bloqués au niveau racine.",
+      },
+      {
+        type: "improvement",
+        text: "Bouton flottant retiré du tableau de bord et du stock — il n'apparaît plus que sur Articles, Achats, Ventes et Dépenses.",
+      },
+      {
+        type: "improvement",
+        text: "Nouvelle bottom nav mobile : Tableau de bord · Articles · Achats · Ventes · Paramètres (Stock, Analytics et Dépenses restent dans la palette ⌘K et la sidebar desktop).",
+      },
+    ],
+  },
+  {
     version: "0.7.2",
     date: "2026-05-05",
     title: "Mobile : moins de doublons, nav plus pertinente",

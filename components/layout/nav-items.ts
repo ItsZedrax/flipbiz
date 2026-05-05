@@ -30,16 +30,16 @@ export const NAV_ITEMS: NavItem[] = [
 ];
 
 /**
- * Curated mobile bottom-nav: most-used screens for daily resell ops.
- * Settings, Stock, Dépenses, Export → accessible via sidebar (desktop) or
- * the user menu / command palette / page filters (mobile).
+ * Curated mobile bottom-nav, in display order.
+ * Other screens (Stock, Analytics, Dépenses, Export) → accessible via sidebar
+ * on desktop, user menu / command palette on mobile.
  */
 export const MOBILE_NAV_ITEMS: NavItem[] = [
   NAV_ITEMS.find((i) => i.href === "/")!,
   NAV_ITEMS.find((i) => i.href === "/articles")!,
-  NAV_ITEMS.find((i) => i.href === "/sales")!,
   NAV_ITEMS.find((i) => i.href === "/purchases")!,
-  NAV_ITEMS.find((i) => i.href === "/analytics")!,
+  NAV_ITEMS.find((i) => i.href === "/sales")!,
+  NAV_ITEMS.find((i) => i.href === "/settings")!,
 ];
 
 /** True if the current pathname should highlight the given nav item. */

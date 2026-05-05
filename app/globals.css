@@ -77,17 +77,22 @@
   * {
     @apply border-border;
   }
+  html {
+    /* Lock all horizontal scroll/slide gestures app-wide. */
+    overflow-x: clip;
+    overscroll-behavior-x: none;
+    @apply scroll-smooth;
+  }
   body {
     color: hsl(var(--foreground));
     background: var(--gradient-app);
     background-attachment: fixed;
-    /* `clip` prevents horizontal slide without breaking position:fixed (unlike `hidden`). */
     overflow-x: clip;
+    overscroll-behavior-x: none;
+    width: 100%;
+    max-width: 100vw;
     @apply antialiased;
     font-feature-settings: "rlig" 1, "calt" 1;
-  }
-  html {
-    @apply scroll-smooth;
   }
   /* Smooth dark-mode cross-fade on common surfaces (200ms). */
   body,

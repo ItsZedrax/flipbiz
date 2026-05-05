@@ -8,9 +8,7 @@ import { Plus } from "lucide-react";
 type FabAction = { href: string; label: string };
 
 const ROUTES: Record<string, FabAction> = {
-  "/": { href: "/articles/new", label: "Article" },
   "/articles": { href: "/articles/new", label: "Article" },
-  "/stock": { href: "/articles/new", label: "Article" },
   "/sales": { href: "/sales/new", label: "Vente" },
   "/purchases": { href: "/articles/new", label: "Achat" },
   "/expenses": { href: "/expenses/new", label: "Dépense" },

@@ -59,7 +59,7 @@ export default async function AppLayout({
             type={announcement.type}
           />
         ) : null}
-        <main className="flex-1 px-4 pb-24 pt-6 sm:px-6 lg:px-8 lg:pb-8">
+        <main className="w-full max-w-full flex-1 overflow-x-clip px-4 pb-24 pt-6 sm:px-6 lg:px-8 lg:pb-8">
           <PullToRefresh>
             <PageTransition>{children}</PageTransition>
           </PullToRefresh>
