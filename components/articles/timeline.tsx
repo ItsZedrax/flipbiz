@@ -35,7 +35,7 @@ export function Timeline({
                   <div className="my-1 w-px flex-1 bg-border" aria-hidden />
                 ) : null}
               </div>
-              <div className="flex-1 pb-1">
+              <div className="min-w-0 flex-1 pb-1">
                 <div className="flex items-center justify-between">
                   <p className="text-xs uppercase tracking-wide text-muted-foreground">
                     Achat
@@ -44,28 +44,27 @@ export function Timeline({
                     asChild
                     variant="ghost"
                     size="sm"
-                    className="h-6 px-2 text-xs"
+                    className="h-6 shrink-0 px-2 text-xs"
                   >
                     <Link href={`/purchases/${purchase.id}/edit`}>
                       <Pencil className="h-3 w-3" />
-                      Modifier
+                      <span className="hidden sm:inline">Modifier</span>
                     </Link>
                   </Button>
                 </div>
-                <div className="mt-1 flex flex-wrap items-center gap-2">
+                <div className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1">
                   {buyer ? (
                     <UserAvatar
                       fullName={buyer.full_name}
                       username={buyer.username}
                       color={buyer.color}
-                      className="h-6 w-6 text-[10px]"
+                      className="h-6 w-6 shrink-0 text-[10px]"
                     />
                   ) : null}
-                  <span className="text-sm font-medium">
+                  <span className="truncate text-sm font-medium">
                     {buyer?.full_name ?? buyer?.username ?? "—"}
                   </span>
-                  <span className="text-sm text-muted-foreground">
-                    le{" "}
+                  <span className="text-xs text-muted-foreground">
                     {format(parseISO(purchase.purchase_date), "d MMM yyyy", {
                       locale: fr,
                     })}
@@ -92,7 +91,7 @@ export function Timeline({
                   <TrendingUp className="h-4 w-4" />
                 </div>
               </div>
-              <div className="flex-1">
+              <div className="min-w-0 flex-1">
                 <div className="flex items-center justify-between">
                   <p className="text-xs uppercase tracking-wide text-muted-foreground">
                     Vente
@@ -101,28 +100,27 @@ export function Timeline({
                     asChild
                     variant="ghost"
                     size="sm"
-                    className="h-6 px-2 text-xs"
+                    className="h-6 shrink-0 px-2 text-xs"
                   >
                     <Link href={`/sales/${sale.id}/edit`}>
                       <Pencil className="h-3 w-3" />
-                      Modifier
+                      <span className="hidden sm:inline">Modifier</span>
                     </Link>
                   </Button>
                 </div>
-                <div className="mt-1 flex flex-wrap items-center gap-2">
+                <div className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1">
                   {seller ? (
                     <UserAvatar
                       fullName={seller.full_name}
                       username={seller.username}
                       color={seller.color}
-                      className="h-6 w-6 text-[10px]"
+                      className="h-6 w-6 shrink-0 text-[10px]"
                     />
                   ) : null}
-                  <span className="text-sm font-medium">
+                  <span className="truncate text-sm font-medium">
                     {seller?.full_name ?? seller?.username ?? "—"}
                   </span>
-                  <span className="text-sm text-muted-foreground">
-                    le{" "}
+                  <span className="text-xs text-muted-foreground">
                     {format(parseISO(sale.sale_date), "d MMM yyyy", {
                       locale: fr,
                     })}

@@ -35,11 +35,11 @@ export function ArticleActions({ articleId, articleName }: ArticleActionsProps) 
 
   return (
     <>
-      <div className="flex gap-2">
+      <div className="flex shrink-0 gap-2">
         <Button asChild variant="outline" size="sm">
           <Link href={`/articles/${articleId}/edit`}>
             <Pencil />
-            Modifier
+            <span className="hidden sm:inline">Modifier</span>
           </Link>
         </Button>
         <Button
@@ -49,7 +49,7 @@ export function ArticleActions({ articleId, articleName }: ArticleActionsProps) 
           className="text-destructive hover:text-destructive"
         >
           <Trash2 />
-          Supprimer
+          <span className="hidden sm:inline">Supprimer</span>
         </Button>
       </div>
       <ConfirmDialog

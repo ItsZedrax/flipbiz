@@ -22,6 +22,17 @@ export type ChangelogEntry = {
  */
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: "0.7.4",
+    date: "2026-05-05",
+    title: "Fiche article qui tient sur l'écran",
+    items: [
+      {
+        type: "fix",
+        text: "Le détail d'un article ne déborde plus à droite sur mobile : la timeline (achat / vente) et le détail financier s'affichent en entier. Les boutons « Modifier » / « Supprimer » se compactent en icônes sur les petits écrans.",
+      },
+    ],
+  },
+  {
     version: "0.7.3",
     date: "2026-05-05",
     title: "Verrou largeur + nav mobile peaufinée",

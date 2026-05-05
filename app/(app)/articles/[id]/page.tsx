@@ -87,7 +87,7 @@ export default async function ArticleDetailPage({
 
       <div className="grid gap-6 lg:grid-cols-2">
         {/* Left column: gallery + meta */}
-        <div className="space-y-4">
+        <div className="min-w-0 space-y-4">
           <PhotoGallery photos={article.photos} alt={article.name} />
 
           {/* Title + status */}
@@ -158,7 +158,7 @@ export default async function ArticleDetailPage({
         </div>
 
         {/* Right column: timeline + cost + history */}
-        <div className="space-y-4">
+        <div className="min-w-0 space-y-4">
           <Timeline
             articleId={article.id}
             articleStatus={article.status}
