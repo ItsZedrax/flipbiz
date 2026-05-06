@@ -4,6 +4,7 @@ import { format, parseISO } from "date-fns";
 import { fr } from "date-fns/locale";
 import {
   getAnalyticsData,
+  getDailyActivity,
   type AnalyticsPeriod,
 } from "@/lib/queries/analytics";
 import { MetricCard } from "@/components/dashboard/metric-card";
@@ -14,6 +15,7 @@ import { CategoryStatsTable } from "@/components/analytics/category-stats-table"
 import { PlatformStatsTable } from "@/components/analytics/platform-stats-table";
 import { DaysToSellChart } from "@/components/analytics/days-to-sell-chart";
 import { ProfitScatterChart } from "@/components/analytics/profit-scatter-chart";
+import { YearlyHeatmap } from "@/components/analytics/yearly-heatmap";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { formatCurrency } from "@/lib/utils";
 
@@ -42,7 +44,10 @@ export default async function AnalyticsPage({
       : "30d"
   ) as AnalyticsPeriod;
 
-  const data = await getAnalyticsData(period);
+  const [data, dailyActivity] = await Promise.all([
+    getAnalyticsData(period),
+    getDailyActivity(),
+  ]);
   const { kpis, from, to } = data;
 
   const periodLabel =
@@ -109,6 +114,9 @@ export default async function AnalyticsPage({
           tone="default"
         />
       </div>
+
+      {/* Yearly activity heatmap (independent from period) */}
+      <YearlyHeatmap data={dailyActivity} />
 
       {/* Per user */}
       <Card>

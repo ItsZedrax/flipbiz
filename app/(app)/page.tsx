@@ -10,6 +10,7 @@ import {
 import { createClient } from "@/lib/supabase/server";
 import { getDashboardData } from "@/lib/queries/dashboard";
 import { MetricCard } from "@/components/dashboard/metric-card";
+import { MonthlyGoalCard } from "@/components/dashboard/monthly-goal-card";
 import { ChartCard } from "@/components/dashboard/chart-card";
 import { ProfitLineChart } from "@/components/dashboard/profit-line-chart";
 import { CategoryPieChart } from "@/components/dashboard/category-pie-chart";
@@ -45,6 +46,11 @@ export default async function DashboardPage() {
           Vue d&apos;ensemble du business · {monthName}
         </p>
       </div>
+
+      <MonthlyGoalCard
+        goal={data.alerts.profitGoal}
+        current={kpis.monthProfit}
+      />
 
       {/* KPI grid */}
       <div className="grid gap-3 grid-cols-2 sm:grid-cols-3 xl:grid-cols-6">

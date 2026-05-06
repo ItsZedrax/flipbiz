@@ -7,6 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
+import { useFormAutosave } from "@/lib/hooks/use-form-autosave";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import {
@@ -52,6 +53,11 @@ export function NewExpenseForm({
     },
   });
 
+  const { hasDraft, clear: clearDraft } = useFormAutosave(
+    "expense-new",
+    form,
+  );
+
   async function onSubmit(values: ExpenseFormInput) {
     setPending(true);
     const supabase = createClient();
@@ -68,6 +74,7 @@ export function NewExpenseForm({
       return;
     }
     toast.success("Dépense ajoutée");
+    clearDraft();
     router.push("/expenses");
     router.refresh();
   }
@@ -75,6 +82,23 @@ export function NewExpenseForm({
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+        {hasDraft ? (
+          <div className="flex flex-wrap items-center justify-between gap-2 rounded-md border border-primary/30 bg-primary/5 px-4 py-2 text-xs">
+            <span className="text-primary">
+              Brouillon restauré automatiquement.
+            </span>
+            <button
+              type="button"
+              onClick={() => {
+                form.reset();
+                clearDraft();
+              }}
+              className="font-medium text-primary underline-offset-2 hover:underline"
+            >
+              Repartir de zéro
+            </button>
+          </div>
+        ) : null}
         <Card>
           <CardHeader>
             <CardTitle>Nouvelle dépense</CardTitle>

@@ -8,7 +8,7 @@ import {
 import { Package } from "lucide-react";
 import { ListToolbar } from "@/components/articles/list-toolbar";
 import { ArticleGridCard } from "@/components/articles/article-grid-card";
-import { ArticleTable } from "@/components/articles/article-table";
+import { SelectableArticleTable } from "@/components/articles/selectable-article-table";
 import { PersistArticlesFilters } from "@/components/articles/persist-filters";
 import { Pagination } from "@/components/shared/pagination";
 import { EmptyState } from "@/components/shared/empty-state";
@@ -132,7 +132,7 @@ export default async function ArticlesPage({
           ))}
         </div>
       ) : (
-        <ArticleTable items={articlesRes.items} />
+        <SelectableArticleTable items={articlesRes.items} />
       )}
 
       <Pagination

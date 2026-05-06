@@ -64,8 +64,59 @@ export type AnalyticsData = {
   scatter: ScatterPoint[];
 };
 
+export type DailyActivity = {
+  /** YYYY-MM-DD */
+  date: string;
+  profit: number;
+  salesCount: number;
+};
+
 const num = (v: number | string | null | undefined): number =>
   v == null ? 0 : typeof v === "string" ? parseFloat(v) : v;
+
+/**
+ * Daily profit + sale count for the last 365 days, used by the calendar
+ * heatmap on Analytics. Independent from the page's period selector.
+ */
+export async function getDailyActivity(): Promise<DailyActivity[]> {
+  const supabase = createClient();
+  const today = new Date();
+  const todayISO = today.toISOString().slice(0, 10);
+  const start = new Date(today);
+  start.setDate(start.getDate() - 364);
+  const startISO = start.toISOString().slice(0, 10);
+
+  const { data: profits } = await supabase
+    .from("article_profit")
+    .select("sale_date, net_profit")
+    .gte("sale_date", startISO)
+    .lte("sale_date", todayISO);
+
+  const map = new Map<string, { profit: number; salesCount: number }>();
+  for (const p of profits ?? []) {
+    if (!p.sale_date) continue;
+    const key = p.sale_date.slice(0, 10);
+    const slot = map.get(key) ?? { profit: 0, salesCount: 0 };
+    slot.profit += num(p.net_profit);
+    slot.salesCount += 1;
+    map.set(key, slot);
+  }
+
+  // Build a continuous 365-day series from start → today.
+  const out: DailyActivity[] = [];
+  const cursor = new Date(start);
+  for (let i = 0; i < 365; i++) {
+    const key = cursor.toISOString().slice(0, 10);
+    const slot = map.get(key) ?? { profit: 0, salesCount: 0 };
+    out.push({
+      date: key,
+      profit: Math.round(slot.profit),
+      salesCount: slot.salesCount,
+    });
+    cursor.setDate(cursor.getDate() + 1);
+  }
+  return out;
+}
 
 function rangeFor(period: AnalyticsPeriod): {
   from: string | null;

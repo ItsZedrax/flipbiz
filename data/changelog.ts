@@ -22,6 +22,33 @@ export type ChangelogEntry = {
  */
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: "0.8.0",
+    date: "2026-05-06",
+    title: "Objectifs, heatmap, bulk actions, drafts, audit",
+    items: [
+      {
+        type: "new",
+        text: "Carte « Objectif du mois » sur le tableau de bord avec barre de progression colorée — tu vois ta progression vers ton objectif de profit en temps réel. Définis-le depuis Mon profil.",
+      },
+      {
+        type: "new",
+        text: "Heatmap annuelle sur Analytics : 365 cases (style GitHub) qui montrent ton profit jour par jour. Survole pour voir le détail.",
+      },
+      {
+        type: "new",
+        text: "Sélection multiple sur la liste Articles (vue table) : coche plusieurs articles → barre flottante pour changer le statut ou supprimer en masse.",
+      },
+      {
+        type: "new",
+        text: "Auto-save des brouillons sur les formulaires Article et Dépense : si tu refresh ou perds la page, ton travail est restauré automatiquement à ton retour.",
+      },
+      {
+        type: "new",
+        text: "Onglet « Activité » dans /admin : timeline des 200 dernières actions (création, modification, suppression) avec qui a fait quoi et quand.",
+      },
+    ],
+  },
+  {
     version: "0.7.4",
     date: "2026-05-05",
     title: "Fiche article qui tient sur l'écran",
